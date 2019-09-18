@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>doccreate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+<link href="projUIForm2.css" rel="stylesheet" />
+
+</head>
+
+<style>
+button{
+    color: #ffff;
+    background-color: #4CAF50;
+    border-radius: 30px;
+    border: 1px solid #4CAF50;
+    float: right;
+    margin-right: 20px;
+    margin-top: 20px;
+    font-size: 14px;
+    padding: 6px 20px;
+    font-weight: bold;
+  }
+</style>
+<body>
+
+    <div class="delete-form">
+
+<div>
+
+</div>
+    <form name="docedit" action="doccreate.php" method="post">
+        <h2>Patient Information Creation Form</h2>
+      <p ><font color="red">* Required</font></p>
+                Patient Number:<font color="red">* </font><br/>
+                <input type="text" name="number"><br/>
+                Patient Name:<font color="red">* </font><br/>
+                <input type="text" name="name"><br/>
+                ID number:<font color="red">* </font><br>
+                <input type="text" name="ID"><br/>
+                Age:<font color="red">* </font><br/>
+                <input type="text" name="age"><br/>
+                Temperature:<font color="red">* </font><br/>
+                <input type="text" name="temperature"><br/>
+                BP:<font color="red">* </font><br/>
+                <input type="text" name="BP"><br/>
+                Weight(KG):<font color="red">* </font><br/>
+                <input type="text" name="weight"><br/>
+                Symptoms:<font color="red">* </font><br/>
+               <textarea rows="5" cols="30" name="symptoms"></textarea><br/>
+              Diagnosis:<font color="red">* </font><br/>
+                <textarea rows="5" cols="30" name="diagnosis"></textarea><br/>
+                Prescription:<font color="red">* </font><br/>
+                <textarea rows="5" cols="30" name="prescription"></textarea><br/>
+                Date: <font color="red">* </font><br/>
+                <input type="date" name="bday"><br/><br/>
+
+
+                <button type="submit" >Create</button>
+            </form>
+    </div>
+</body>
+</html>
+
+doccreate.php
+
+<html>
+<body>
+<link href="projUIMsgs.css" rel="stylesheet" />
+<form>
+<?php
+
+//DECLARE VARIABLES
+$passphrase='pass';
+
+//title insert
+$pPatientNo=$_POST['number'];
+$pName=$_POST['name'];
+$pIdNo=$_POST['ID'];
+$pAge=$_POST['age'];
+$pTemp=$_POST['temperature'];
+$pBP=$_POST['BP'];
+$pWeight=$_POST['weight'];
+$pSymptoms=$_POST['symptoms'];
+$pDiagnosticsId=$_POST['diagnosis'];
+$pPrescription=$_POST['prescription'];
+$pDate=$_POST['bday'];
+//CHECK WHETHER FIELD ARE EMPTY -- ifB
+if($pPatientNo=="" or $pName=="" or $pIdNo=="" or $pTemp=="" or $pBP=="" or $pWeight=="" or $pSymptoms==""
+          or $pDiagnosticsId=="" or $pPrescription=="" or $pDate==""){
+        echo "***All fields must be entered, hit back button and re-enter information***";
+}else{ //esle ifB
+  //ESTABLISH CONNECTION
+  $con=mysqli_connect("localhost:3306","root","");
+  if(!$con){
+      die('Could not connect: '.mysqli_error());
+  }
+  mysqli_select_db($con,"hospital system");
+
+  //patient_details: IdNo, Name, Age
+  //patient_general: PatientNo, Date, Temp, B.P, Symptoms, DescriptionId, Prescription
+  //patient_key: IdNo, PatientNo
+  //patient_treatment: DiagnosticsId, Sysmptoms,Prescription
+
+  //INSERT INTO TABLE patient details: Name, IdNo, Age
+  $sql = "INSERT INTO patient_details VALUES(
+   '$_POST[ID]',
+    '$_POST[name]',
+   '$_POST[age]'
+  )" ;
+
+
+  //CHECK FOR ERROR
+  if(!mysqli_query($con,$sql)){
+      die('Error:'.mysqli_error($con));
+  }
+  //echo "Record for $_POST[name] added successfully";*/
+
+  //patient general: PatientNo, Date, Temp, B.P, Sysmptoms, DescriptionId, Prescription
+  $sql2 = "INSERT INTO patient_general VALUES(
+ '$_POST[number]',
+    '$_POST[bday]',
+   '$_POST[temperature]',
+   '$_POST[BP]',
+   '$_POST[weight]'
+  )" ;
+ 
+  //CHECK FOR ERROR
+  if(!mysqli_query($con,$sql2)){
+      die('Error:'.mysqli_error($con));
+  }
+  //echo "Record for $_POST[name] added successfully";*/
+  //AES_ENCRYPT('$_POST[DoEmp]','$passphrase')
+    //patient key: IdNo, PatientNo
+  $sql3 = "INSERT INTO patient_key VALUES(
+   '$_POST[ID]',
+   '$_POST[number]'
+  )" ;
+
+  //CHECK FOR ERROR
+  if(!mysqli_query($con,$sql3)){
+      die('Error:'.mysqli_error($con));
+  }
+    //patient treatment: DiagnosticsId, Sysmptoms,Prescription
+  $sql4 = "INSERT INTO patient_treatment VALUES(
+   AES_ENCRYPT('$_POST[diagnosis]','$passphrase'),
+   AES_ENCRYPT('$_POST[symptoms]','$passphrase'),
+   AES_ENCRYPT('$_POST[prescription]','$passphrase')
+  )" ;
+ 
+  //CHECK FOR ERROR
+  if(!mysqli_query($con,$sql4)){
+      die('Error:'.mysqli_error($con));
+  }
+  echo "Record for $_POST[name] added successfully";
+
+}//--end of ifB
+
+
+ ?>
+</form>
+</body>
+</html>
+
+
