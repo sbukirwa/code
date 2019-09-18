@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Incident Report Form</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css" media="all">
+		/* Remove the navbar's default rounded borders and increase the bottom margin */ 
+		.navbar {
+			border-radius: 0;
+		}
+
+		/* Remove the jumbotron's default bottom padding */ 
+		.jumbotron {
+			padding: 10px;
+		}
+
+		/* Add a gray background color and some padding to the footer */
+		footer {
+			background-color: #f2f2f2;
+			padding: 25px;
+		}
+	</style>
+</head>
+<body>
+
+
+	<div class="col-md-12 jumbotron text-center">
+		<div class="col-md-2">
+			<img src="logo.png" width="150" height="auto" alt="Kenya Police Logo" />
+		</div>
+		<div class="col-md-10">
+			<h1>Police Incident Report Form</h1>
+			<p>Fill in the form below.</p>
+		</div>
+	</div>
+
+
+<ul class="breadcrumb" id="breadcrumb_victim" style="display:none;"> 
+	<li><a onclick="back_to_form1();" style="cursor:pointer;">Basic Info</a></li>
+	<li>Victim Info</li>
+</ul>
+
+<ul class="breadcrumb" id="breadcrumb_witness" style="display:none;"> 
+	<li>Home</li>
+	<li><a onclick="back_to_form1();" style="cursor:pointer;">Basic Info</a></li>
+	<li><a onclick="next_to_form2();" style="cursor:pointer;">Victim Info</a></li>
+	<li>Witness Info</li>
+</ul>
+
+<ul class="breadcrumb" id="breadcrumb_injured" style="display:none;"> 
+	<li><a onclick="back_to_form1();" style="cursor:pointer;">Basic Info</a></li>
+	<li><a onclick="next_to_form2();" style="cursor:pointer;">Victim Info</a></li>
+	<li><a onclick="next_to_form3();" style="cursor:pointer;">Witness Info</a></li>
+	<li>Injured Info</li>
+</ul>
+
+<ul class="breadcrumb" id="breadcrumb_investigation" style="display:none;"> 
+	<li><a onclick="back_to_form1();" style="cursor:pointer;">Basic Info</a></li>
+	<li><a onclick="next_to_form2();" style="cursor:pointer;">Victim Info</a></li>
+	<li><a onclick="next_to_form3();" style="cursor:pointer;">Witness Info</a></li>
+	<li><a onclick="next_to_form4();" style="cursor:pointer;">Injured Info</a></li>
+	<li>Investigation Info</li>
+</ul>
+
+<ul class="breadcrumb" id="breadcrumb_charges" style="display:none;"> 
+	<li><a onclick="back_to_form1();" style="cursor:pointer;">Basic Info</a></li>
+	<li><a onclick="next_to_form2();" style="cursor:pointer;">Victim Info</a></li>
+	<li><a onclick="next_to_form3();" style="cursor:pointer;">Witness Info</a></li>
+	<li><a onclick="next_to_form4();" style="cursor:pointer;">Injured Info</a></li>
+	<li><a onclick="next_to_form5();" style="cursor:pointer;">Investigation Info</a></li>
+	<li>Charges Info</li>
+</ul>
+
+<ul class="breadcrumb" id="breadcrumb_confirm" style="display:none;"> 
+	<li><a onclick="back_to_form1();" style="cursor:pointer;">Basic Info</a></li>
+	<li><a onclick="next_to_form2();" style="cursor:pointer;">Victim Info</a></li>
+	<li><a onclick="next_to_form3();" style="cursor:pointer;">Witness Info</a></li>
+	<li><a onclick="next_to_form4();" style="cursor:pointer;">Injured Info</a></li>
+	<li><a onclick="next_to_form5();" style="cursor:pointer;">Investigation Info</a></li>
+	<li><a onclick="next_to_form6();" style="cursor:pointer;">Charges Info</a></li>
+	<li>Confirm Report</li>
+</ul>
+
+<div class="container">
+	<form method="post" id="incident-form">
+		<div class="row" id="form1" style="display:block">
+			<span id="errors" class="text-left text-danger" style=""></span>
+			<h2>Basic Info</h2>
+			<hr>
+			<div class="form-group col-md-6">
+				<label for="police_station">Police Station: <span id="police_station_errors" class="text-danger text-left"></span></label>
+				<input type="text" id="police_station" name="police_station" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="police_name" id="label">Police Name: <span id="police_name_errors" class="text-danger text-left"></span></label>
+				<input type="text" id="police_name" name="police_name" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="contact_police">Contact Police: <span id="contact_police_errors" class="text-danger text-left"></span></label>
+				<input type="text" id="contact_police" name="contact_police" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="incident_place">Incident Place: <span id="incident_place_errors" class="text-danger text-left"></span></label>
+				<input type="text" id="incident_place" name="incident_place" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="incident_date">Incident Date: <span id="incident_date_errors" class="text-danger text-left"></span></label>
+				<input type="date" id="incident_date" name="incident_date" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="incident_time">Incident Time: <span id="incident_time_errors" class="text-danger text-left"></span></label>
+				<input type="time" id="incident_time" name="incident_time" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-12 pull-right" style="display:block;">
+				<input type="button" id="next-form1" onclick="next_to_form2();" value="Next>>" class="btn btn-success pull-right" style="display:block;margin:2px;">			
+				<button type="button" onclick="cancel();" class="btn btn-default pull-right" style="display:block;margin:2px;">Cancel</button>
+			</div>
+		</div>
+
+		<div class="row" id="form2" style="display:none">
+			<span id="errors2" class="text-left text-danger" style=""></span>
+			<h2>Victim Info<button type="button" onclick="jQuery('#myVictim').modal('toggle');return false;" class="btn btn-success pull-right">Add Victim</button></h2>
+			<hr>
+			<div class="form-group col-md-6">
+				<label for="victim">Victim: <span id="victim_errors" class="text-danger text-left"></span></label>
+				<input type="text" id="victim" name="victim" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="victim_contact">Victim Contact: <span id="victim_contact_errors" class="text-danger text-left"></span></label>
+				<input type="text" id="victim_contact" name="victim_contact" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="victim_insurance">Victim Insurance: <span id="victim_insurance_errors" class="text-danger text-left"></span></label>
+				<input type="text" id="victim_insurance" name="victim_insurance" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="victim_registration">Victim Registration: <span id="victim_registration" class="text-danger text-left"></span></label>
+				<input type="text" id="victim_registration" name="victim_registration" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-12 pull-right" style="display:block;">
+				<input type="button" id="next-form1" onclick="next_to_form3();" value="Next>>" class="btn btn-success pull-right" style="display:block;margin:2px;">
+				<input type="button" id="back-form1" onclick="back_to_form1();" value="<<Back" class="btn btn-primary pull-right" style="display:block;margin:2px;">
+				<button type="button" onclick="cancel();" class="btn btn-default pull-right" style="display:block;margin:2px;">Cancel</button>
+			</div>
+		</div>
+		
+		<div class="row" id="form3" style="display:none">
+			<span id="errors3" class="text-left text-danger" style=""></span>
+			<h2>Witness Info<button type="button" onclick="jQuery('#myWitness').modal('toggle');return false;" class="btn btn-success pull-right">Add Witness</button></h2>
+			<hr>
+			<div class="form-group col-md-6">
+				<label for="witness">Witness: <span id="witness_errors" class="text-danger text-left"></span></label>
+				<input type="text" id="witness" name="witness" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="witness_contact">Witness Contact: <span id="witness_contact" class="text-danger text-left"></span></label>
+				<input type="text" id="witness_contact" name="witness_contact" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="witness_address">Witness Address: <span id="witness_address_errors" class="text-danger text-left"></span></label>
+				<input type="text" id="witness_address" name="witness_address" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-12 pull-right" style="display:block;">
+				<input type="button" id="next-form1" onclick="next_to_form4();" value="Next>>" class="btn btn-success pull-right" style="display:block;margin:2px;">
+				<input type="button" id="back-form1" onclick="next_to_form2();" value="<<Back" class="btn btn-primary pull-right" style="display:block;margin:2px;">
+				<button type="button" onclick="cancel();" class="btn btn-default pull-right" style="display:block;margin:2px;">Cancel</button>
+			</div>
+		</div>
+		
+		<div class="row" id="form4" style="display:none">
+			<span id="errors4" class="text-left text-danger" style=""></span>
+			<h2>Injured Info<button type="button" onclick="jQuery('#myInjured').modal('toggle');return false;" class="btn btn-success pull-right">Add Injured</button></h2>
+			<hr>
+			<div class="form-group col-md-6">
+				<label for="injured">Injured: <span id="injured_errors" class="text-danger text-left"></span></label>
+				<input type="text" id="injured" name="injured" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="injured_contact">Injured Contact: <span id="injured_contact_errors" class="text-danger text-left"></span></label>
+				<input type="text" id="injured_contact" name="injured_contact" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="injured_address">Injured Address: <span id="injured_address_errors" class="text-danger text-left"></span></label>
+				<input type="text" id="injured_address" name="injured_address" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="injured_insurance">Injured Insurance: <span id="injured_insurance_errors" class="text-danger text-left"></span></label>
+				<input type="text" id="injured_insurance" name="injured_insurance" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-12">
+				<label for="injured_nature">Injured Nature: <span id="injured_nature_errors" class="text-danger text-left"></span></label>
+				<textarea id="injured_nature" name="injured_nature" class="form-control" rows="10"></textarea>
+			</div>
+			<div class="form-group col-md-12 pull-right" style="display:block;">
+				<input type="button" id="next-form1" onclick="next_to_form5();" value="Next>>" class="btn btn-success pull-right" style="display:block;margin:2px;">
+				<input type="button" id="back-form1" onclick="next_to_form3();" value="<<Back" class="btn btn-primary pull-right" style="display:block;margin:2px;">
+				<button type="button" onclick="cancel();" class="btn btn-default pull-right" style="display:block;margin:2px;">Cancel</button>
+			</div>
+		</div>
+		
+		<div class="row" id="form5" style="display:none">
+			<span id="errors5" class="text-left text-danger"></span>
+			<h2>Investigation Info</h2>
+			<hr>
+			<div class="col-md-12">
+				<div class="form-group col-md-6">
+					<label for="investigation_complete">Investigation Complete: <span id="investigation_complete_errors" class="text-danger text-left"></span></label><br />
+					<input type="radio" class="with-gap" name="investigation_complete" value="male" /> 
+					<span>Yes</span><br />
+					<input type="radio" class="with-gap" name="investigation_not_complete" value="female" />
+					<span>No</span>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="form-group col-md-6">
+					<label for="been_charged">Person Been Charged: <span id="been_charged_errors" class="text-danger text-left"></span></label><br />
+					<input type="radio" name="been_charged" value="charged_yes">
+					<span>Yes</span><br />
+					<input type="radio" name="been_charged" value="charged_no"> 
+					<span>No</span>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="form-group col-md-6">
+					<label for="been_prosecuted">Person Been Prosecuted: <span id="been_prosecuted_errors" class="text-danger text-left"></span></label><br />
+					<input type="radio" name="been_prosecuted" value="prosecuted_yes">
+					<span>Yes</span><br />
+					<input type="radio" name="been_prosecuted" value="prosecuted_no"> 
+					<span>No</span>
+				</div>
+			</div>
+			<div class="form-group col-md-12 pull-right" style="display:block;">
+				<input type="button" id="next-form1" onclick="next_to_form6();" value="Next>>" class="btn btn-success pull-right" style="display:block;margin:2px;">
+				<input type="button" id="back-form1" onclick="next_to_form4();" value="<<Back" class="btn btn-primary pull-right" style="display:block;margin:2px;">
+				<button type="button" onclick="cancel();" class="btn btn-default pull-right" style="display:block;margin:2px;">Cancel</button>
+			</div>
+		</div>
+			
+		<div class="row" id="form6" style="display:none">
+			<span id="errors6" class="text-left text-danger" style=""></span>
+			<h2>Charges Info</h2>
+			<hr>
+			<div class="form-group col-md-6">
+				<label for="court_no">Court Case Number: <span id="court_no_errors" class="text-danger text-left"></span></label>
+				<input type="number" id="court_no" name="court_no" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="investigation_officer">Investigation Officer: <span id="investigation_officer_errors" class="text-danger text-left"></span></label>
+				<input type="text" id="investigation_officer" name="investigation_officer" class="form-control" value=""></input>
+			</div>
+			<div class="form-group col-md-12">
+				<label for="investigation_result">Result of Investigation: <span id="investigation_result_errors" class="text-danger text-left"></span></label>
+				<textarea id="investigation_result" name="investigation_result" class="form-control" rows="10"></textarea>
+			</div>
+			<div class="form-group col-md-12 pull-right" style="display:block;">
+				<input type="button" id="next-form1" onclick="next_to_form7();" value="Next>>" class="btn btn-success pull-right" style="display:block;margin:2px;">
+				<input type="button" id="back-form1" onclick="next_to_form5();" value="<<Back" class="btn btn-primary pull-right" style="display:block;margin:2px;">
+				<button type="button" onclick="cancel();" class="btn btn-default pull-right" style="display:block;margin:2px;">Cancel</button>
+			</div>
+		</div>
+		
+		<div class="row" id="form7" style="display:none">
+			<h2 class="text-center">Preview</h2>
+			<hr>
+			<div class="row" id="part1">
+				<h3>Basic Info<hr></h3>
+				<div class="form-group col-md-6">
+					<label for="police_station">Police Station: <span id="police_station_errors" class="text-danger text-left"></span></label>
+					<input type="text" id="police_station" name="police_station" class="form-control" value=""></input>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="police_name" id="label">Police Name: <span id="police_name_errors" class="text-danger text-left"></span></label>
+					<input type="text" id="police_name" name="police_name" class="form-control" value=""></input>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="contact_police">Contact Police: <span id="contact_police_errors" class="text-danger text-left"></span></label>
+					<input type="text" id="contact_police" name="contact_police" class="form-control" value=""></input>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="incident_place">Incident Place: <span id="incident_place_errors" class="text-danger text-left"></span></label>
+					<input type="text" id="incident_place" name="incident_place" class="form-control" value=""></input>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="incident_date">Incident Date: <span id="incident_date_errors" class="text-danger text-left"></span></label>
+					<input type="date" id="incident_date" name="incident_date" class="form-control" value=""></input>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="incident_time">Incident Time: <span id="incident_time_errors" class="text-danger text-left"></span></label>
+					<input type="time" id="incident_time" name="incident_time" class="form-control" value=""></input>
+				</div>
+			</div>
+			<div class="row" id="part2">
+				<h3>Victim Info<hr></h3>
+				<div class="form-group col-md-6">
+					<label for="victim">Victim: <span id="victim_errors" class="text-danger text-left"></span></label>
+					<input type="text" id="victim" name="victim" class="form-control" value=""></input>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="victim_contact">Victim Contact: <span id="victim_contact_errors" class="text-danger text-left"></span></label>
+					<input type="text" id="victim_contact" name="victim_contact" class="form-control" value=""></input>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="victim_registration">Victim Registration: <span id="victim_registration" class="text-danger text-left"></span></label>
+					<input type="text" id="victim_registration" name="victim_registration" class="form-control" value=""></input>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="victim_insurance">Victim Insurance: <span id="victim_insurance_errors" class="text-danger text-left"></span></label>
+					<input type="text" id="victim_insurance" name="victim_insurance" class="form-control" value=""></input>
+				</div>
+			</div>
+			<div class="row" id="part3">
+				<h3>Witness Info<hr></h3>
+				<div class="form-group col-md-6">
+					<label for="witness">Witness: <span id="witness_errors" class="text-danger text-left"></span></label>
+					<input type="text" id="witness" name="witness" class="form-control" value=""></input>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="witness_contact">Witness Contact: <span id="witness_contact" class="text-danger text-left"></span></label>
+					<input type="text" id="witness_contact" name="witness_contact" class="form-control" value=""></input>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="witness_address">Witness Address: <span id="witness_address_errors" class="text-danger text-left"></span></label>
+					<input type="text" id="witness_address" name="witness_address" class="form-control" value=""></input>
+				</div>
+			</div>
+			<div class="row" id="part4">
+				<h3>Injured Info<hr></h3>
+				<div class="form-group col-md-6">
+					<label for="injured">Injured: <span id="witness_errors" class="text-danger text-left"></span></label>
+					<input type="text" id="injured" name="injured" class="form-control" value=""></input>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="injured_contact">Injured Contact: <span id="injured_contact_errors" class="text-danger text-left"></span></label>
+					<input type="text" id="injured_contact" name="injured_contact" class="form-control" value=""></input>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="injured_address">Injured Address: <span id="injured_address_errors" class="text-danger text-left"></span></label>
+					<input type="text" id="injured_address" name="injured_address" class="form-control" value=""></input>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="injured_insurance">Injured Insurance: <span id="injured_insurance_errors" class="text-danger text-left"></span></label>
+					<input type="text" id="injured_insurance" name="injured_insurance" class="form-control" value=""></input>
+				</div>
+				<div class="form-group col-md-12">
+					<label for="injured_nature">Injured Nature: <span id="injured_nature_errors" class="text-danger text-left"></span></label>
+					<textarea id="injured_nature" name="injured_nature" class="form-control" rows="10"></textarea>
+				</div>
+			</div>
+			<div class="row" id="part5">
+				<h3>Investigation Info<hr></h3>
+				<div class="col-md-12">
+					<div class="form-group col-md-6">
+						<label for="investigation_complete">Investigation Complete: <span id="investigation_complete_errors" class="text-danger text-left"></span></label><br />
+						<input type="radio" class="with-gap" name="investigation_complete" value="male" /> 
+						<span>Yes</span><br />
+						<input type="radio" class="with-gap" name="investigation_not_complete" value="female" />
+						<span>No</span>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group col-md-6">
+						<label for="been_charged">Person Been Charged: <span id="been_charged_errors" class="text-danger text-left"></span></label><br />
+						<input class="with-gap" type="radio" name="been_charged" value="charged_yes" />
+						<span>Yes</span><br />
+						<input class="with-gap" type="radio" name="been_charged" value="charged_no" /> 
+						<span>No</span>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group col-md-6">
+						<label for="been_prosecuted">Person Been Prosecuted: <span id="been_prosecuted_errors" class="text-danger text-left"></span></label><br />
+						<input class="with-gap"type="radio" name="been_prosecuted" value="prosecuted_yes" />
+						<span>Yes</span><br />
+						<input class="with-gap" type="radio" name="been_prosecuted" value="prosecuted_no" /> 
+						<span>No</span>
+					</div>
+				</div>
+			</div>
+			<div class="row" id="part6" style="display:block;">
+				<h3>Charges Info<hr></h3>
+				<div class="form-group col-md-6">
+					<label for="court_no">Court Case Number: <span id="court_no_errors" class="text-danger text-left"></span></label>
+					<input type="number" id="court_no" name="court_no" class="form-control" value=""></input>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="investigation_officer">Investigation Officer: <span id="investigation_officer_errors" class="text-danger text-left"></span></label>
+					<input type="text" id="investigation_officer" name="investigation_officer" class="form-control" value=""></input>
+				</div>
+				<div class="form-group col-md-12">
+					<label for="investigation_result">Result of Investigation: <span id="investigation_result_errors" class="text-danger text-left"></span></label>
+					<textarea id="investigation_result" name="investigation_result" class="form-control" rows="10"></textarea>
+				</div>
+			</div>
+			<div class="row" id="part7">
+				<div class="form-group col-md-12 pull-right" style="display:block;">
+					<input type="button" id="next-form1" onclick="myFunction();" value="Submit" class="btn btn-success pull-right" style="display:block;margin:2px;">
+					<input type="button" id="back-form1" onclick="next_to_form6();" value="<<Back" class="btn btn-primary pull-right" style="display:block;margin:2px;">
+					<a href=""><button type="button" class="btn btn-default pull-right" style="display:block;margin:2px;">Cancel</button></a>
+				</div>
+			</div>
+		</div>
+	<form>
+	<div class="row" style="padding-top:10px;">
+		<div class="text-center">
+			&copy; Copyright 2018 Group 1
+		</div>
+	</div>
+	
+	<div class="modal fade" id="myVictim" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Add Victim</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid">
+						<div class="form-group col-md-6">
+							<label for="victim">Victim: <span id="victim_errors" class="text-danger text-left"></span></label>
+							<input type="text" id="victim" name="victim" class="form-control" value=""></input>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="victim_contact">Victim Contact: <span id="victim_contact_errors" class="text-danger text-left"></span></label>
+							<input type="text" id="victim_contact" name="victim_contact" class="form-control" value=""></input>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="victim_insurance">Victim Insurance: <span id="victim_insurance_errors" class="text-danger text-left"></span></label>
+							<input type="text" id="victim_insurance" name="victim_insurance" class="form-control" value=""></input>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="victim_registration">Victim Registration: <span id="victim_registration" class="text-danger text-left"></span></label>
+							<input type="text" id="victim_registration" name="victim_registration" class="form-control" value=""></input>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<div class="modal fade" id="myWitness" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Add Witness</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid">
+						<div class="form-group col-md-6">
+							<label for="witness">Witness: <span id="witness_errors" class="text-danger text-left"></span></label>
+							<input type="text" id="witness" name="witness" class="form-control" value=""></input>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="witness_contact">Witness Contact: <span id="witness_contact" class="text-danger text-left"></span></label>
+							<input type="text" id="witness_contact" name="witness_contact" class="form-control" value=""></input>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="witness_address">Witness Address: <span id="witness_address_errors" class="text-danger text-left"></span></label>
+							<input type="text" id="witness_address" name="witness_address" class="form-control" value=""></input>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<div class="modal fade" id="myInjured" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Add Injured</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid">
+						<div class="form-group col-md-6">
+							<label for="injured">Injured: <span id="injured_errors" class="text-danger text-left"></span></label>
+							<input type="text" id="injured" name="injured" class="form-control" value=""></input>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="injured_contact">Injured Contact: <span id="injured_contact_errors" class="text-danger text-left"></span></label>
+							<input type="text" id="injured_contact" name="injured_contact" class="form-control" value=""></input>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="injured_address">Injured Address: <span id="injured_address_errors" class="text-danger text-left"></span></label>
+							<input type="text" id="injured_address" name="injured_address" class="form-control" value=""></input>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="injured_insurance">Injured Insurance: <span id="injured_insurance_errors" class="text-danger text-left"></span></label>
+							<input type="text" id="injured_insurance" name="injured_insurance" class="form-control" value=""></input>
+						</div>
+						<div class="form-group col-md-12">
+							<label for="injured_nature">Injured Nature: <span id="injured_nature_errors" class="text-danger text-left"></span></label>
+							<textarea id="injured_nature" name="injured_nature" class="form-control" rows="10"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->	
+</div>
+
+<script>
+function myFunction() {
+    alert("Incident Report Successfully Uploaded");
+	location.reload();
+}
+function cancel(){
+	var retVal = confirm("Cancel form input?");
+	if( retVal == true ){
+		location.reload();
+		return true;
+	}
+	else{	
+		return false;
+	}
+ }
+function back_to_form1(){
+	jQuery('#errors').html("");
+	jQuery('#form1').css("display","block");
+	jQuery('#form2').css("display","none");
+	jQuery('#form3').css("display","none");
+	jQuery('#form4').css("display","none");
+	jQuery('#form5').css("display","none");
+	jQuery('#form6').css("display","none");
+	jQuery('#form7').css("display","none");
+	jQuery('#breadcrumb_victim').css("display","none");
+	jQuery('#breadcrumb_witness').css("display","none");
+	jQuery('#breadcrumb_injured').css("display","none");
+	jQuery('#breadcrumb_investigation').css("display","none");
+	jQuery('#breadcrumb_charges').css("display","none");
+	jQuery('#breadcrumb_confirm').css("display","none");
+}
+function next_to_form2(){
+	jQuery('#errors').html("");
+	jQuery('#form1').css("display","none");
+	jQuery('#form2').css("display","block");
+	jQuery('#form3').css("display","none");
+	jQuery('#form4').css("display","none");
+	jQuery('#form5').css("display","none");
+	jQuery('#form6').css("display","none");
+	jQuery('#form7').css("display","none");
+	jQuery('#breadcrumb_victim').css("display","block");
+	jQuery('#breadcrumb_witness').css("display","none");
+	jQuery('#breadcrumb_injured').css("display","none");
+	jQuery('#breadcrumb_investigation').css("display","none");
+	jQuery('#breadcrumb_charges').css("display","none");
+	jQuery('#breadcrumb_confirm').css("display","none");
+}
+function next_to_form3(){
+	jQuery('#errors').html("");
+	jQuery('#form1').css("display","none");
+	jQuery('#form2').css("display","none");
+	jQuery('#form3').css("display","block");
+	jQuery('#form4').css("display","none");
+	jQuery('#form5').css("display","none");
+	jQuery('#form6').css("display","none");
+	jQuery('#form7').css("display","none");
+	jQuery('#breadcrumb_victim').css("display","none");
+	jQuery('#breadcrumb_witness').css("display","block");
+	jQuery('#breadcrumb_injured').css("display","none");
+	jQuery('#breadcrumb_investigation').css("display","none");
+	jQuery('#breadcrumb_charges').css("display","none");
+	jQuery('#breadcrumb_confirm').css("display","none");
+}
+function next_to_form4(){
+	jQuery('#errors').html("");
+	jQuery('#form1').css("display","none");
+	jQuery('#form2').css("display","none");
+	jQuery('#form3').css("display","none");
+	jQuery('#form4').css("display","block");
+	jQuery('#form5').css("display","none");
+	jQuery('#form6').css("display","none");
+	jQuery('#form7').css("display","none");
+	jQuery('#breadcrumb_victim').css("display","none");
+	jQuery('#breadcrumb_witness').css("display","none");
+	jQuery('#breadcrumb_injured').css("display","block");
+	jQuery('#breadcrumb_investigation').css("display","none");
+	jQuery('#breadcrumb_charges').css("display","none");
+	jQuery('#breadcrumb_confirm').css("display","none");
+}
+function next_to_form5(){
+	jQuery('#errors').html("");
+	jQuery('#form1').css("display","none");
+	jQuery('#form2').css("display","none");
+	jQuery('#form3').css("display","none");
+	jQuery('#form4').css("display","none");
+	jQuery('#form5').css("display","block");
+	jQuery('#form6').css("display","none");
+	jQuery('#form7').css("display","none");
+	jQuery('#breadcrumb_victim').css("display","none");
+	jQuery('#breadcrumb_witness').css("display","none");
+	jQuery('#breadcrumb_injured').css("display","none");
+	jQuery('#breadcrumb_investigation').css("display","block");
+	jQuery('#breadcrumb_charges').css("display","none");
+	jQuery('#breadcrumb_confirm').css("display","none");
+}
+function next_to_form6(){
+	jQuery('#errors').html("");
+	jQuery('#form1').css("display","none");
+	jQuery('#form2').css("display","none");
+	jQuery('#form3').css("display","none");
+	jQuery('#form4').css("display","none");
+	jQuery('#form5').css("display","none");
+	jQuery('#form6').css("display","block");
+	jQuery('#form7').css("display","none");
+	jQuery('#breadcrumb_victim').css("display","none");
+	jQuery('#breadcrumb_witness').css("display","none");
+	jQuery('#breadcrumb_injured').css("display","none");
+	jQuery('#breadcrumb_investigation').css("display","none");
+	jQuery('#breadcrumb_charges').css("display","block");
+	jQuery('#breadcrumb_confirm').css("display","none");
+}
+function next_to_form7(){
+	jQuery('#errors').html("");
+	jQuery('#form1').css("display","none");
+	jQuery('#form2').css("display","none");
+	jQuery('#form3').css("display","none");
+	jQuery('#form4').css("display","none");
+	jQuery('#form5').css("display","none");
+	jQuery('#form6').css("display","none");
+	jQuery('#form7').css("display","block");
+	jQuery('#breadcrumb_victim').css("display","none");
+	jQuery('#breadcrumb_witness').css("display","none");
+	jQuery('#breadcrumb_injured').css("display","none");
+	jQuery('#breadcrumb_investigation').css("display","none");
+	jQuery('#breadcrumb_charges').css("display","none");
+	jQuery('#breadcrumb_confirm').css("display","block");
+}
+</script>
+</body>
+</html>
